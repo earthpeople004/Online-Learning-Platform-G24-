@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Check Grade -- Student</title>
+        <link rel="icon" href="/icon.jpg"/>
+        <style>
+            body{
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 20px;
+                min-height: 100vh;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                
+                background: url("/student.jpg");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                overflow: scroll;
+            }
+            .welcome-message{
+                padding: 10px 15px;
+                font-size: 40px;
+                font-weight: 400;
+            }
+            .nav-links{
+                position:sticky;
+                z-index: 20;
+                display:flex;
+                border: 3px solid #000000;
+                border-radius: 20px;
+                backdrop-filter: blur(20px);
+                border-radius: 20px;
+                justify-content: space-between;
+                align-items: stretch;
+            }
+            .home{
+                gap: 10px;
+                padding: 10px 15px;
+                border-right:3px solid #000000;
+                color:#000000;
+                text-decoration: none;
+            }
+            .right{
+                display: flex;
+                align-items: stretch;
+            }
+            .dropdown{
+                position: relative;
+                z-index:50;
+            }
+            .dropdown summary{
+                display: flex;
+                position: relative;
+                list-style: circle;
+                cursor: pointer;
+                padding: 10px 15px;
+                align-items: center;
+                border-left: 3px solid #000000;
+                border-right:3px solid #000000;
+                gap:6px;
+                box-sizing: border-box;
+
+            }
+            .dropdownMenu{
+                background-color: #ffffffdf;
+                backdrop-filter: blur(20px);
+                position: absolute;
+                border:3px solid #000000;
+                top:100%;
+                left:0;
+                min-width: 150px;
+                backdrop-filter: blur(20px);
+                z-index:60;
+            }
+            .dropdownMenu a{
+                display:grid;
+                color: #000000;
+                text-decoration: none;
+                border-bottom:3px solid #000000;
+                z-index:60;
+            }
+            .others{
+                display: flex;
+                align-items: center;
+            }
+            .others a{
+                gap: 10px;
+                padding: 10px 15px;
+                color:#000000;
+                text-decoration: none;
+            }
+            .grades{
+                border-right:3px solid #000000;
+            }
+            h1{
+                animation: fadeInUp 1s ease-out forwards;
+            }
+            .Grades table{
+                width: 100%;
+                min-height:500px;
+                font-size: 30px;
+                max-width: 700px;
+                border-collapse: separate;
+                border-spacing: 0;
+                border: 3px solid #000000;
+                border-radius: 0;
+                background-color: rgba(255, 255, 255, 0.653);
+                backdrop-filter: blur(20px);
+                animation: fadeInUp 1s ease-out forwards;
+            }
+            .Grades th{
+                padding:10px,15px;
+                text-align: center;
+                border-bottom:3px solid #000000;
+                border-left: 3px solid #000000;
+            }
+            .Grades td{
+                padding:10px,15px;
+                text-align: center;
+                border-bottom:3px solid #000000;
+                border-left: 3px solid #000000;
+            }
+            .Grades th:first-child, .Grades td:first-child{
+                border-left:none;
+            }
+            @keyframes fadeInUp{
+                0%{
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                100%{
+                    opacity: 1;
+                    transform: translateY(0px);
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <body>
+        <div class="student-page">
+            <div class="welcome-message">
+                <strong>Welcome, <%= user %></strong> 
+            </div>
+                <div class = "nav-links">
+                    <a href ="/student" class="home">Home ⌂</a>
+                    <div class="right">
+                        <details class="dropdown">
+                            <summary>Assignments ⛛</summary>
+                            <div class="dropdownMenu">
+                                <% selfCourse.forEach(function(c) {%>
+                                    <a href="/assignment/<%= c %>" >▶▷ <%= c %></a> 
+                                <%});%>
+                            </div>
+                        </details>
+                        <div class="others">
+                            <a href ="/checkMyGrades" class="grades">Check My Grades</a>
+                            <a href="/logout" class="logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="Grades">
+            <h1>Your Grades</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <% selfCourse.forEach(function(c) {%>
+                            <tr>
+                                <td><%= c %></td>
+                                <td><%= selfScore.get(c) %></td>
+                            </tr>
+                        <%});%>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
