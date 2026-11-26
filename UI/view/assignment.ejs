@@ -1,38 +1,184 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Online Assignment</title>
+        <title>Online Assignments -- Student</title>
+        <link rel="icon" href="/icon.jpg"/>
+        <style>
+            body{
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 20px;
+                min-height: 100vh;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                
+                background: url("/student.jpg");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                overflow: scroll;
+            }
+            .welcome-message{
+                padding: 10px 15px;
+                font-size: 40px;
+                font-weight: 400;
+            }
+            .nav-links{
+                position:sticky;
+                z-index: 20;
+                display:flex;
+                border: 3px solid #000000;
+                border-radius: 20px;
+                backdrop-filter: blur(20px);
+                border-radius: 20px;
+                justify-content: space-between;
+                align-items: stretch;
+            }
+            .home{
+                gap: 10px;
+                padding: 10px 15px;
+                border-right:3px solid #000000;
+                color:#000000;
+                text-decoration: none;
+            }
+            .right{
+                display: flex;
+                align-items: stretch;
+            }
+            .dropdown{
+                position: relative;
+                z-index:50;
+            }
+            .dropdown summary{
+                display: flex;
+                position: relative;
+                list-style: circle;
+                cursor: pointer;
+                padding: 10px 15px;
+                align-items: center;
+                border-left: 3px solid #000000;
+                border-right:3px solid #000000;
+                gap:6px;
+                box-sizing: border-box;
+
+            }
+            .dropdownMenu{
+                background-color: #ffffffdf;
+                backdrop-filter: blur(20px);
+                position: absolute;
+                border:3px solid #000000;
+                top:100%;
+                left:0;
+                min-width: 150px;
+                backdrop-filter: blur(20px);
+                z-index:60;
+            }
+            .dropdownMenu a{
+                display:grid;
+                color: #000000;
+                text-decoration: none;
+                border-bottom:3px solid #000000;
+                z-index:60;
+            }
+            .others{
+                display: flex;
+                align-items: center;
+            }
+            .others a{
+                gap: 10px;
+                padding: 10px 15px;
+                color:#000000;
+                text-decoration: none;
+            }
+            .grades{
+                border-right:3px solid #000000;
+            }
+            .online-assignment{
+                margin-top: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                max-width: 100%;
+                min-height: 650px;
+                border: 3px solid #000000;
+                border-radius: 20px;
+                background-color: rgba(255, 255, 255, 0.743);
+                backdrop-filter: blur(20px);
+                z-index:10;
+                animation: fadeInUp 1s ease-out forwards;
+            }
+            .btn{
+                display: block;
+                margin: 20px auto 0;
+                font-weight: 300;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 20px;
+                background: #000000;
+                color: antiquewhite;
+                box-shadow: 0 10px 20px #221b5277;
+                cursor: pointer;
+
+                transition-property: width;
+                transition-duration: 2s;
+                transition-timing-function: ease-in;
+                transition-delay: 0s;
+            }
+            @keyframes fadeInUp{
+                0%{
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                100%{
+                    opacity: 1;
+                    transform: translateY(0px);
+                }
+            }
+        </style>
     </head>
 
     <body>
-        <nav style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #ccc;">
-            <div>
-                <strong>Online Learning Platform</strong> 
+        <div class="student-page">
+            <div class="welcome-message">
+                <strong>Welcome, <%= user %></strong> 
             </div>
-            <div>
-                <a href="/login">Logout</a>
-            </div>
-        </nav>
-        <h1>Online Assignment on (Course)</h1>
-        <div id="assignment">
-            <div class="question">Question: </div>
-            <div class="options">
-                <form>
-                    A. <br>
-                    B. <br>
-                    C. <br>
-                    D. <br>
-                </form>
-            </div>
-            <div class="answer">
-                <form>
-                    ANS: <input type="text" name="ans" required><br><br>
-                </form>
-            </div>
-            <button>< Back</button>
-            <button>Next ></button>
-            <button>Submit</button>
+                <div class = "nav-links">
+                    <a href ="/student" class="home">Home ⌂</a>
+                    <div class="right">
+                        <details class="dropdown">
+                            <summary>Assignments ⛛</summary>
+                            <div class="dropdownMenu">
+                                <% studentCourse.forEach(function(c) {%>
+                                    <a href="/assignment/<%= c %>" >▶▷ <%= c %></a> 
+                                <%});%>
+                            </div>
+                        </details>
+                        <div class="others">
+                            <a href ="/checkMyGrades" class="grades">Check My Grades</a>
+                            <a href="/logout" class="logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
         </div>
-
+        
+        <div class="online-assignment">
+            <h1>Online Assignment on <%= course%></h1>
+            <div class="assignment">
+                <form action="/assignment/<%= course%>" method="POST">
+                    <% questions.forEach(function(q) {%>
+                            <div class="question">Question: <%= q.question %></div>
+                            Answer: <select name ="choice" required>
+                                <option value ="" disabled selected>Select your answer</option>
+                                <% (q.choices).forEach(function(c) {%>
+                                    <option><%= c %></option>
+                                <%});%>
+                            </select><br><br>
+                    <%});%>
+                    <input type="submit" value="Submit assignment" class="btn">
+                </form>
+            </div>
+        </div>
     </body>
 </html>
