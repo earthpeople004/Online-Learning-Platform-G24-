@@ -2,33 +2,138 @@
 <html>
     <head>
         <title>Student's Home Page</title>
+        <link rel="icon" href="/icon.jpg"/>
+        <style>
+            body{
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 20px;
+                min-height: 100vh;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                
+                background: url("/student.jpg");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                overflow: scroll;
+            }
+            .welcome-message{
+                padding: 10px 15px;
+                font-size: 40px;
+                font-weight: 400;
+                animation: fadeInUp 1s ease-out forwards;
+            }
+            .nav-links{
+                display:flex;
+                border: 3px solid #000000;
+                border-radius: 20px;
+                backdrop-filter: blur(20px);
+                border-radius: 20px;
+                justify-content: space-between;
+                align-items: stretch;
+                animation: fadeInUp 1s ease-out forwards;
+                opacity: 0;
+                animation-delay: 0.3s;
+            }
+            .home{
+                gap: 10px;
+                padding: 10px 15px;
+                border-right:3px solid #000000;
+                color:#000000;
+                text-decoration: none;
+            }
+            .right{
+                display: flex;
+                align-items: stretch;
+            }
+            .dropdown{
+                position: relative;
+            }
+            .dropdown summary{
+                display: flex;
+                position: relative;
+                list-style: circle;
+                cursor: pointer;
+                padding: 10px 15px;
+                align-items: center;
+                border-left: 3px solid #000000;
+                border-right:3px solid #000000;
+                gap:6px;
+                box-sizing: border-box;
+
+            }
+            .dropdownMenu{
+                background-color: #ffffffb5;
+                backdrop-filter: blur(20px);
+                position: absolute;
+                border:3px solid #000000;
+                top:100%;
+                left:0;
+                min-width: 150px;
+                backdrop-filter: blur(20px);
+            }
+            .dropdownMenu a{
+                display:grid;
+                color: #000000;
+                text-decoration: none;
+                border-bottom:3px solid #000000;
+            }
+            .others{
+                display: flex;
+                align-items: center;
+            }
+            .others a{
+                gap: 10px;
+                padding: 10px 15px;
+                color:#000000;
+                text-decoration: none;
+            }
+            .grades{
+                border-right:3px solid #000000;
+            }
+            h1{
+                animation: fadeInUp 1s ease-out forwards;
+                opacity: 0;
+                animation-delay: 0.6s;
+            }
+            @keyframes fadeInUp{
+                0%{
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                100%{
+                    opacity: 1;
+                    transform: translateY(0px);
+                }
+            }
+        </style>
     </head>
 
     <body>
-        <nav style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #ccc;">
-            <div>
-                <strong>Online Learning Platform</strong> 
+        <div class="student-page">
+            <div class="welcome-message">
+                <strong>Welcome, <%= user %></strong> 
             </div>
-            <div>
-                <a href="/login">Logout</a>
-            </div>
-        </nav>
-        <h2>My Enrolled Course and Assignment Grade</h2>
-        <form>
-            Name: <%= student.name%> <br>
-            Student No:  <%= student.studNo%><br>
-            Phone: <%= student.phone%><br>
-        </form>
-        <h2 style="color: cornflowerblue;">My Enrolled Courses</h2>
-        <form>
-            Course: <%=student.couse%> <br>
-            <br><br>
-            Grade: <%=student.grade%> <br>
-        </form>
-        
-        <h2 style="color: cornflowerblue;">My Assignment</h2>
-        
-        <a href="/assignment" style="display: inline-block; padding: 8px 16px; background-color: #ccc; text-decoration: none; border-radius: 4px; color: #000;">Start your assignment</a>
-
+                <div class = "nav-links">
+                    <a href ="/student" class="home">Home ⌂</a>
+                    <div class="right">
+                        <details class="dropdown">
+                            <summary>Assignments ⛛</summary>
+                            <div class="dropdownMenu">
+                                <% studentCourse.forEach(function(c) {%>
+                                    <a href="/assignment/<%= c %>" >▶▷ <%= c %></a> 
+                                <%});%>
+                            </div>
+                        </details>
+                        <div class="others">
+                            <a href ="/checkMyGrades" class="grades">Check My Grades</a>
+                            <a href="/logout" class="logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+                <h1>Home Page</h1>
     </body>
 </html>
