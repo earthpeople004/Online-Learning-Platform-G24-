@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View/Delete Question -- Teacher</title>
+        <link rel="icon" href="/icon.jpg"/>
+        <style>
+            body{
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 20px;
+                min-height: 100vh;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                
+                background: url("/teacher.jpg");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                overflow: scroll;
+            }
+            .welcome-message{
+                padding: 10px 15px;
+                font-size: 40px;
+                font-weight: 400;
+            }
+            .nav-links{
+                display:flex;
+                border: 3px solid #000000;
+                border-radius: 20px;
+                backdrop-filter: blur(20px);
+                border-radius: 20px;
+                justify-content: space-between;
+                align-items: stretch;
+                position: relative;
+                z-index: 50;
+            }
+            .home{
+                gap: 10px;
+                padding: 10px 15px;
+                border-right:3px solid #000000;
+                color:#000000;
+                text-decoration: none;
+            }
+            .right{
+                display: flex;
+                align-items: stretch;
+            }
+            .dropdown{
+                position: relative;
+                backdrop-filter: blur(20px);
+            }
+            .dropdown summary{
+                display: flex;
+                cursor: pointer;
+                padding: 10px 15px;
+                align-items: center;
+                border-left: 3px solid #000000;
+                gap:6px;
+                box-sizing: border-box;
+
+            }
+            .dropdownMenu1{
+                position: absolute;
+                background-color: #ffffff94;
+                border:3px solid #000000;
+                backdrop-filter: blur(20px);
+                top:100%;
+                left:0;
+                min-width: 232px;
+            }
+            .dropdownMenu2{
+                position: absolute;
+                background-color:#f5f5f5;
+                border:3px solid #000000;
+                backdrop-filter: blur(20px);
+                top:100%;
+                left:0;
+                min-width: 150px;
+            }
+            .dropdownMenu1 a{
+                display:grid;
+                color: #000000;
+                text-decoration: none;
+                border-bottom:3px solid #000000;
+            }
+            .dropdownMenu2 a{
+                display:grid;
+                color: #000000;
+                text-decoration: none;
+                border-bottom:3px solid #000000;
+            }
+            .others{
+                display: flex;
+                align-items: center;
+            }
+            .others a{
+                gap: 10px;
+                padding: 10px 15px;
+                color:#000000;
+                text-decoration: none;
+            }
+            .logout{
+                border-left: 3px solid #000000;
+            }
+            h1, form{
+                animation: fadeInUp 1s ease-out forwards;
+            }
+            .questions table{
+                width: 100%;
+                min-height:100%;
+                font-size: 15px;
+                max-width: 100%;
+                border-collapse: separate;
+                border-spacing: 0;
+                border: 3px solid #000000;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.801);
+                backdrop-filter: blur(20px);
+                animation: fadeInUp 1s ease-out forwards;
+            }
+            .questions th{
+                padding:10px,15px;
+                text-align: center;
+                border-bottom:3px solid #000000;
+                border-left: 3px solid #000000;
+            }
+            .questions td{
+                padding:10px,15px;
+                text-align: center;
+                border-bottom:3px solid #000000;
+                border-left: 3px solid #000000;
+            }
+            .questions th:first-child, .Grades td:first-child{
+                border-left:none;
+            }
+            .btn{
+                display: block;
+                margin: 20px auto 20px;
+                font-weight: 300;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 20px;
+                background: #000000;
+                color: antiquewhite;
+                cursor: pointer;
+                align-items: center;
+                justify-self: center;
+
+                transition-property: width;
+                transition-duration: 2s;
+                transition-timing-function: ease-in;
+                transition-delay: 0s;
+            }
+            @keyframes fadeInUp{
+                0%{
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                100%{
+                    opacity: 1;
+                    transform: translateY(0px);
+                }
+            }
+            
+        </style>
+    </head>
+
+    <body>
+        <div class="welcome-message">
+            <strong>Welcome, <%= user %></strong> 
+        </div>
+        <nav class = "nav-links">
+            <a href ="/teacher" class="home">Home ⌂</a>
+            <div class="right">
+                <details class="dropdown">
+                    <summary>Student's Course Grade ⛛</summary>
+                    <div class="dropdownMenu1">
+                        <a href ="/Adds">▶▷ Edit Course Grades</a>
+                        <a href ="/grade">▶▷ View Course Grades</a>
+                        <a href ="/delete">▶▷ Remove Student</a>
+                    </div>
+                </details>
+                <details class="dropdown">
+                    <summary>Assignments ⛛</summary>
+                    <div class="dropdownMenu2">
+                        <a href ="/addNewQuestion">▶▷ Add Assignment Questions</a>
+                        <a href ="/viewQuestion">▶▷ View/Delete Assignment Questions</a>
+                        <a href ="/editQuestion">▶▷ Update Assignment Questions</a>
+                    </div>
+                </details>
+                <div class="others">
+                    <a href="/logout" class="logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+        <h1>View/Delete Assignment Questions</h1>
+        <div class="questions">
+            <form action="/viewQuestion" method="POST">
+                Course: <select name ="course" required>
+                    <option disabled selected>Please Select</option>
+                    <% teacherCourse.forEach(function(c) {%>
+                    <option><%=c%></option>
+                <%});%>
+                <input type="submit" value="Check Assignment Questions" class="btn2">
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Choices</th>
+                        <th>Answer</th>
+                        <th>Delete This Question?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <% questionList.forEach(function(q) {%>
+                            <tr>
+                                <td><%= q.question %></td>
+                                <td><%= q.choices %></td>
+                                <td><%= q.answer %></td>
+                                <form action="/deleteQuestion" method="POST">
+                                    <input type="hidden" name ="question" value="<%= q.question %>">
+                                    <th><button type=""submit class="btn">Delete</button></th>
+                                </form>
+                            </tr>
+                        <%});%>
+                    </tr>
+                <tbody>
+            </table>
+            
+        </div>
+    </body>
+</html>
