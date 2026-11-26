@@ -2,38 +2,158 @@
 <html>
     <head>
         <title>Teacher's Home Page</title>
+        <link rel="icon" href="/icon.jpg"/>
+        <style>
+            body{
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 20px;
+                min-height: 100vh;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                
+                background: url("/teacher.jpg");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                overflow: scroll;
+            }
+            .welcome-message{
+                padding: 10px 15px;
+                font-size: 40px;
+                font-weight: 400;
+                animation: fadeInUp 1s ease-out forwards;
+            }
+            .nav-links{
+                display:flex;
+                border: 3px solid #000000;
+                border-radius: 20px;
+                backdrop-filter: blur(20px);
+                border-radius: 20px;
+                justify-content: space-between;
+                align-items: stretch;
+                position: relative;
+                z-index: 50;
+                animation: fadeInUp 1s ease-out forwards;
+                opacity: 0;
+                animation-delay: 0.3s;
+            }
+            .home{
+                gap: 10px;
+                padding: 10px 15px;
+                border-right:5px solid #000000;
+                color:#000000;
+                text-decoration: none;
+            }
+            .right{
+                display: flex;
+                align-items: stretch;
+            }
+            .dropdown{
+                position: relative;
+                backdrop-filter: blur(20px);
+            }
+            .dropdown summary{
+                display: flex;
+                cursor: pointer;
+                padding: 10px 15px;
+                align-items: center;
+                border-left: 3px solid #000000;
+                gap:6px;
+                box-sizing: border-box;
+
+            }
+            .dropdownMenu1{
+                position: absolute;
+                background-color: #ffffff94;
+                border:3px solid #000000;
+                backdrop-filter: blur(20px);
+                top:100%;
+                left:0;
+                min-width: 232px;
+            }
+            .dropdownMenu2{
+                position: absolute;
+                background-color: #ffffff94;
+                border:3px solid #000000;
+                backdrop-filter: blur(20px);
+                top:100%;
+                left:0;
+                min-width: 150px;
+            }
+            .dropdownMenu1 a{
+                display:grid;
+                color: #000000;
+                text-decoration: none;
+                border-bottom:3px solid #000000;
+            }
+            .dropdownMenu2 a{
+                display:grid;
+                color: #000000;
+                text-decoration: none;
+                border-bottom:3px solid #000000;
+            }
+            .others{
+                display: flex;
+                align-items: center;
+            }
+            .others a{
+                gap: 10px;
+                padding: 10px 15px;
+                color:#000000;
+                text-decoration: none;
+            }
+            .logout{
+                border-left: 3px solid #000000;
+            }
+            h1{
+                animation: fadeInUp 1s ease-out forwards;
+                opacity: 0;
+                animation-delay: 0.6s;
+            }
+            @keyframes fadeInUp{
+                0%{
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                100%{
+                    opacity: 1;
+                    transform: translateY(0px);
+                }
+            }
+            
+        </style>
     </head>
 
     <body>
-        <nav style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #ccc;">
-            <div>
-                <strong>Online Learning Platform</strong> 
-            </div>
-            <div>
-                <a href="/login">Logout</a>
-            </div>
-        </nav>
-        <h1>Teacher's Home Page</h2>
-        <nav>
-            <a href="/teacher" style="margin-right: 10px;">Home</a>
-            <a href="/Adds" style="margin-right: 10px;">Add Student/Course</a>
-            <a href="/Grades" style="margin-right: 10px;">View Student's Grade</a>
-            <a href="/Update" style="margin-right: 10px;">Update Student's Grade</a>
-            <a href="/Delete" style="margin-right: 10px;">Remove Student/Course</a>
-        </nav>
-
-        <div id="info">
-            <h2>Personal Information</h2>
-            <form>
-                Surname: <%=teacher.name%> <br>
-                Teacher No: <%=teacher.teachNo%><br>
-                Phone: <%=teacher.phone%><br>
-            </form>
-            <h2 style="color: cornflowerblue;">Courses in Charge</h2>
-            <form>
-                Course: <%=teacher.course%> <br>
-
-            </form>
+        <div class="welcome-message">
+            <strong>Welcome, <%= user %></strong> 
         </div>
+        <nav class = "nav-links">
+            <a href ="/teacher" class="home">Home ⌂</a>
+            <div class="right">
+                <details class="dropdown">
+                    <summary>Student's Course Grade ⛛</summary>
+                    <div class="dropdownMenu1">
+                        <a href ="/Adds">▶▷ Edit Course Grades</a>
+                        <a href ="/grade">▶▷ View Course Grades</a>
+                        <a href ="/delete">▶▷ Remove Student</a>
+                    </div>
+                </details>
+                <details class="dropdown">
+                    <summary>Assignments ⛛</summary>
+                    <div class="dropdownMenu2">
+                        <a href ="/addNewQuestion">▶▷ Add Assignment Questions</a>
+                        <a href ="/viewQuestion">▶▷ View/Delete Assignment Questions</a>
+                        <a href ="/editQuestion">▶▷ Update Assignment Questions</a>
+                    </div>
+                </details>
+                <div class="others">
+                    <a href="/logout" class="logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+            <h1>Home Page</h1>
     </body>
 </html>
