@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Question -- Teacher</title>
+        <link rel="icon" href="/icon.jpg"/>
+    <style>
+            body{
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                padding: 20px;
+                min-height: 100vh;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                
+                background: url("/teacher.jpg");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                overflow: scroll;
+            }
+            .welcome-message{
+                padding: 10px 15px;
+                font-size: 40px;
+                font-weight: 400;
+            }
+            .nav-links{
+                display:flex;
+                border: 3px solid #000000;
+                border-radius: 20px;
+                backdrop-filter: blur(20px);
+                border-radius: 20px;
+                justify-content: space-between;
+                align-items: stretch;
+                position: relative;
+                z-index: 50;
+            }
+            .home{
+                gap: 10px;
+                padding: 10px 15px;
+                border-right:3px solid #000000;
+                color:#000000;
+                text-decoration: none;
+            }
+            .right{
+                display: flex;
+                align-items: stretch;
+            }
+            .dropdown{
+                position: relative;
+                backdrop-filter: blur(20px);
+            }
+            .dropdown summary{
+                display: flex;
+                cursor: pointer;
+                padding: 10px 15px;
+                align-items: center;
+                border-left: 3px solid #000000;
+                gap:6px;
+                box-sizing: border-box;
+
+            }
+            .dropdownMenu1{
+                position: absolute;
+                background-color: #ffffff94;
+                border:3px solid #000000;
+                backdrop-filter: blur(20px);
+                top:100%;
+                left:0;
+                min-width: 232px;
+            }
+            .dropdownMenu2{
+                position: absolute;
+                background-color:#f5f5f5;
+                border:3px solid #000000;
+                backdrop-filter: blur(20px);
+                top:100%;
+                left:0;
+                min-width: 150px;
+            }
+            .dropdownMenu1 a{
+                display:grid;
+                color: #000000;
+                text-decoration: none;
+                border-bottom:3px solid #000000;
+            }
+            .dropdownMenu2 a{
+                display:grid;
+                color: #000000;
+                text-decoration: none;
+                border-bottom:3px solid #000000;
+            }
+            .others{
+                display: flex;
+                align-items: center;
+            }
+            .others a{
+                gap: 10px;
+                padding: 10px 15px;
+                color:#000000;
+                text-decoration: none;
+            }
+            .logout{
+                border-left: 3px solid #000000;
+            }
+            h1{
+                animation: fadeInUp 1s ease-out forwards;
+            }
+            .add{
+                width: 100%;
+                min-height:100%;
+                font-size: 15px;
+                max-width: 100%;
+                border-collapse: separate;
+                border-spacing: 0;
+                border: 3px solid #000000;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.881);
+                backdrop-filter: blur(20px);
+                z-index:10;
+                position: relative;
+                animation: fadeInUp 1s ease-out forwards;
+            }
+            .btn{
+                display: block;
+                margin: 20px auto 20px;
+                font-weight: 300;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 20px;
+                background: #000000;
+                color: antiquewhite;
+                box-shadow: 0 10px 20px #221b5277;
+                cursor: pointer;
+                align-items: center;
+                justify-self: center;
+
+                transition-property: width;
+                transition-duration: 2s;
+                transition-timing-function: ease-in;
+                transition-delay: 0s;
+            }
+            @keyframes fadeInUp{
+                0%{
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                100%{
+                    opacity: 1;
+                    transform: translateY(0px);
+                }
+            }
+            
+        </style>
+    </head>
+
+    <body>
+        <div class="welcome-message">
+            <strong>Welcome, <%= user %></strong> 
+        </div>
+        <nav class = "nav-links">
+            <a href ="/teacher" class="home">Home ⌂</a>
+            <div class="right">
+                <details class="dropdown">
+                    <summary>Student's Course Grade ⛛</summary>
+                    <div class="dropdownMenu1">
+                        <a href ="/Adds">▶▷ Edit Course Grades</a>
+                        <a href ="/grade">▶▷ View Course Grades</a>
+                        <a href ="/delete">▶▷ Remove Student</a>
+                    </div>
+                </details>
+                <details class="dropdown">
+                    <summary>Assignments ⛛</summary>
+                    <div class="dropdownMenu2">
+                        <a href ="/addNewQuestion">▶▷ Add Assignment Questions</a>
+                        <a href ="/viewQuestion">▶▷ View/Delete Assignment Questions</a>
+                        <a href ="/editQuestion">▶▷ Update Assignment Questions</a>
+                    </div>
+                </details>
+                <div class="others">
+                    <a href="/logout" class="logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+        
+        <h1>Add Assignment Questions</h1>
+        <div class="add">
+            <form action="/addNewQuestion" method="POST">
+                Course: <select name ="course" required>
+                    <option disabled selected>Please Select</option>
+                    <% teacherCourse.forEach(function(c) {%>
+                    <option><%=c%></option>
+                <%});%>
+                </select><br><br>
+                    Question: <input type="text" name="question" size="90" required><br><br>
+                    Choice 1: <input type="text"  name="choices" size="60" required><br><br>
+                    Choice 2: <input type="text"  name="choices" size="60" required><br><br>
+                    Choice 3: <input type="text"  name="choices" size="60" required><br><br>
+                    Choice 4: <input type="text"  name="choices" size="60" required><br><br>
+                    Answer: <input type="text"  name="answer" size="60" required><br><br>
+                <input type="submit" value="Add Question" class="btn">
+            </form>
+        </div>
+    </body>
+</html>
