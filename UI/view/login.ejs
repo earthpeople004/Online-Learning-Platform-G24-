@@ -1,19 +1,73 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
+        <title>Login Page</title>
+        <link rel="icon" href="/icon.jpg"/>
+        <style>
+            body{
+                display: flex;
+                margin: 0;
+                padding: 20px;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                
+                background: url("/background.jpg");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+            }
+            .login-info{
+                margin-top: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 400px;
+                height: 550px;
+                border: 3px solid #000000;
+                border-radius: 20px;
+                backdrop-filter: blur(20px);
+            }
+            .button-info{
+                display: block;
+                margin: 20px auto 0;
+                font-weight: 300;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 20px;
+                background: #000000;
+                color: antiquewhite;
+                box-shadow: 0 10px 20px #221b5277;
+                cursor: pointer;
+
+                transition-property: width;
+                transition-duration: 2s;
+                transition-timing-function: ease-in;
+                transition-delay: 0s;
+            }
+            .error-message{
+                color: rgb(187, 19, 19);
+                justify-self: center;
+                align-items: center;
+            }
+        </style>
     </head>
         
     <body>
-        <h2>Course and Online Assignment System</h2>
-        <form>
-            <label for="username">Username: </label><input type="text" id="username" name="username" placeholder="Enter your Username" required><br><br>
-            <label for="password">Password: </label><input type="password" id="password" name="password" placeholder="Enter your Password" required><br><br>
-            <input type="submit" value="Login">
-
-        </form>
-
-        
+        <div class="login-info">
+            <h2>Online Learning Platform</h2>
+            <form action="/login" method="POST">
+                <label for="username">Username: </label><input type="text" id="username" name="username" placeholder="Enter your Username" required><br><br>
+                <label for="password">Password: </label><input type="password" id="password" name="password" placeholder="Enter your Password" required><br><br>
+                <input class="button-info" type="submit" value="Login">
+                <label class="error-message"><%=error%></label>
+                
+            </form>
+        </div>
     </body>
 
 </html>
